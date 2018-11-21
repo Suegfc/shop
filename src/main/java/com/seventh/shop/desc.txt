@@ -1,0 +1,9 @@
+configuration 配置文件类所在包
+controller  处理器包
+dao  持久化操作接口包
+domain  实体类包
+exhandler  异常处理包
+service  业务实现接口包
+serviceimpl  业务实现接口的实现类
+utils  工具包
+vo   restful风格接口数据封装包
