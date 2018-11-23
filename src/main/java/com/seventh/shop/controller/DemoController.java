@@ -1,5 +1,6 @@
 package com.seventh.shop.controller;
 
+import com.seventh.shop.vo.Result;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class DemoController {
 
     @RequestMapping(path = "/world")
-    public String hello() {
-        return "hello world!";
+    public Result<String> hello() {
+        return Result.success("hello world");
     }
 }

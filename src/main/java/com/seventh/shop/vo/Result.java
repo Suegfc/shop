@@ -21,6 +21,16 @@ public class Result<T> {
      */
     private T data;
 
+    private Object other;
+
+    public Object getOther() {
+        return other;
+    }
+
+    public void setOther(Object other) {
+        this.other = other;
+    }
+
     /**
      * 如果请求处理成功，直接通过该构造方法返回成功状态
      * @param data 需要返回的数据
