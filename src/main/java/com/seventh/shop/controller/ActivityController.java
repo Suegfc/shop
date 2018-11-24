@@ -18,6 +18,7 @@ public class ActivityController {
 
     @PostMapping("/api/v1/activity")
     public Result<Activity> addActivity(Activity activity) {
+
         return service.addActivity(activity);
     }
 }
