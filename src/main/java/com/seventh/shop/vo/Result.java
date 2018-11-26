@@ -33,6 +33,7 @@ public class Result<T> {
 
     /**
      * 如果请求处理成功，直接通过该构造方法返回成功状态
+     *
      * @param data 需要返回的数据
      */
     private Result(T data) {
@@ -43,6 +44,7 @@ public class Result<T> {
 
     /**
      * 如果请求处理有问题
+     *
      * @param cm CodeMsg对象，保存请求失败需要返回的结果
      */
     private Result(CodeMsg cm) {
@@ -55,6 +57,7 @@ public class Result<T> {
 
     /**
      * 请求成功
+     *
      * @param data 需要返回的数据
      * @param <T>
      * @return Result<T>类型对象
@@ -65,7 +68,8 @@ public class Result<T> {
 
     /**
      * 请求异常
-     * @param cm CodeMsg对象，保存异常信息
+     *
+     * @param cm  CodeMsg对象，保存异常信息
      * @param <T>
      * @return Result<T>类型对象
      */
@@ -85,4 +89,18 @@ public class Result<T> {
         return data;
     }
 
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    public void setData(T data) {
+        this.data = data;
+    }
+
+    public Result() {
+    }
 }

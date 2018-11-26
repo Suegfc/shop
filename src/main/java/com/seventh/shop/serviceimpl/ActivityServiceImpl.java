@@ -8,6 +8,9 @@ import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author gfc
  * 2018年11月23日 下午 8:05
@@ -21,4 +24,27 @@ public class ActivityServiceImpl implements ActivityService {
     public Result<Activity> addActivity(Activity activity) {
         return activityDao.save(activity) != null ? Result.success(activityDao.save(activity)) : Result.error(CodeMsg.ERROR);
     }
+
+    @Override
+    public Result<List<Map<String, Object>>> findAllActivityTitle(Integer id) {
+        return activityDao.findAllActivityTitle(id) != null ? Result.success(activityDao.findAllActivityTitle(id)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<Map<String, Object>> findActivityInfo(Integer id) {
+        Result<Map<String, Object>> result = new Result<>();
+        Map<String, Object> activityInfo = activityDao.findActivityInfo(id);
+        if (activityInfo != null) {
+            int price = Integer.parseInt((String) activityInfo.get("price"));
+            int discount = (int) activityInfo.get("discount");
+            double newPrice = (double)(price * discount) / 10;
+            result.setOther(newPrice);
+            result.setMsg("success");
+            result.setData(activityInfo);
+            result.setCode(0);
+        }
+
+        return result;
+    }
+
 }
