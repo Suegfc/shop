@@ -38,4 +38,10 @@ public class CodeMsg {
         return msg;
     }
 
+    public static  CodeMsg newError(int Code,String Msg){
+        ERROR.code=Code;
+        ERROR.msg=Msg;
+        return ERROR;
+    }
+
 }
