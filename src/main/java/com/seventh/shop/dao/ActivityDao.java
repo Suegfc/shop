@@ -14,9 +14,19 @@ import java.util.Map;
  */
 public interface ActivityDao extends JpaRepository<Activity, Integer> {
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Query(nativeQuery = true, value = "SELECT id,title FROM activity WHERE pid = (SELECT id FROM product WHERE shopid=?)")
     List<Map<String, Object>> findAllActivityTitle(@Param("id") Integer id);
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     @Query(nativeQuery = true, value = "SELECT price,discount,starttime,endtime FROM product,activity WHERE product.`id`=pid AND pid = ?")
     Map<String, Object> findActivityInfo(@Param("id") Integer id);
 }
