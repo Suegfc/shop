@@ -30,4 +30,9 @@ public class RulesServiceImpl implements RulesService {
         }
         return dao.saveAll(rulesList) != null ? Result.success(dao.saveAll(rulesList)) : Result.error(CodeMsg.ERROR);
     }
+
+    @Override
+    public Result<List<Rules>> findAll(int aid) {
+        return dao.findAllByAid(aid) != null ? Result.success(dao.findAllByAid(aid)) : Result.error(CodeMsg.ERROR);
+    }
 }

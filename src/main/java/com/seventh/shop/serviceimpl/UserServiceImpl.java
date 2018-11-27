@@ -22,14 +22,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public Result<User> selectUser(User user) {
 
-        return  dao.findByUsernameAndPassword(user.getUsername(),user.getPassword()) != null ? Result.success(dao.findByUsernameAndPassword(user.getUsername(),user.getPassword())):Result.error(CodeMsg.ERROR);
+        return dao.findByUsernameAndPassword(user.getUsername(), user.getPassword()) != null ? Result.success(dao.findByUsernameAndPassword(user.getUsername(), user.getPassword())) : Result.error(CodeMsg.ERROR);
     }
+
     //修改用户信息
     @Override
     public Result<User> updateUser(User user) {
-        if(dao.findByUsernameAndPassword(user.getUsername(),user.getPassword())!=null) {
+        if (dao.findByUsernameAndPassword(user.getUsername(), user.getPassword()) != null) {
             return dao.save(user) == null ? Result.error(CodeMsg.ERROR) : Result.success(user);
-        } else
-            return  Result.error(CodeMsg.newError(1,"请输入正确密码"));
+        } else {
+            return Result.error(CodeMsg.newError(1, "请输入正确密码"));
+        }
     }
 }

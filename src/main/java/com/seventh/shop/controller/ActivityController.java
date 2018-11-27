@@ -33,8 +33,8 @@ public class ActivityController {
     }
 
     @GetMapping("/api/v1/activity")
-    public Result<Map<String, Object>> findActivityInfo(Integer shopId) {
+    public Result<Map<String, Object>> findActivityInfo(Integer proId) {
 
-        return service.findActivityInfo(shopId);
+        return service.findActivityInfo(proId);
     }
 }

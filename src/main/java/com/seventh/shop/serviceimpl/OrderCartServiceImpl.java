@@ -18,7 +18,7 @@ public class OrderCartServiceImpl implements OrderCartService {
     @Override
     //添加
     public boolean addToCar(int productId, int customerId, int productAmount) {
-        int i = 0;
+        int i;
         if (isExit(productId, customerId)) {
             i = cartDao.updateCartNum(customerId, productId, productAmount);
         } else {

@@ -1,6 +1,7 @@
 package com.seventh.shop.controller;
 
 import com.seventh.shop.service.OrderCartService;
+import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,11 +17,11 @@ public class OrderCartController {
     OrderCartService orderCartService;
 
     @PostMapping("addToOrderCar")
-    public Result addToCar(int productId,int customerId,int productAmount) {
-        if (orderCartService.addToCar(productId,customerId,productAmount)) {
-            return
+    public Result addToCar(int productId, int customerId, int productAmount) {
+        if (orderCartService.addToCar(productId, customerId, productAmount)) {
+            return Result.success(null);
         }
-        return  null;
+        return Result.error(CodeMsg.ERROR);
 
     }
 }
