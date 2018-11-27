@@ -22,19 +22,19 @@ public class OrderCartController {
     OrderCartService orderCartService;
 
     @PostMapping("OrderCar")//向购物车中添加
-    public CodeMsg addToCar(int productId, int customerId, int productAmount) {
+    public Result addToCar(int productId, int customerId, int productAmount) {
         if (orderCartService.addToCar(productId, customerId, productAmount)) {
-            return CodeMsg.SUCCESS;
+            return Result.success(null);
         }
-        return CodeMsg.ERROR;
+        return Result.error(CodeMsg.ERROR);
     }
 
     @DeleteMapping("OrderCar")//删除
-    public CodeMsg deleteCartItem(int customerId, int productId) {
+    public Result deleteCartItem(int customerId, int productId) {
         if (orderCartService.deleteCartItem(customerId, productId)) {
-            return CodeMsg.SUCCESS;
+            return Result.success(null);
         }
-        return CodeMsg.ERROR;
+        return Result.error(CodeMsg.ERROR);
     }
 
     @GetMapping("OrderCar")//查询购物车中所有的商品
