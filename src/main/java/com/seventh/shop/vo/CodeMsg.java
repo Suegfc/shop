@@ -25,6 +25,7 @@ public class CodeMsg {
      * 可定义各种异常静态变量
      */
     public static CodeMsg ERROR = new CodeMsg(1, "failed");
+    public static CodeMsg SUCCESS = new CodeMsg(0, "success");
 
     /**
      * ......有需要再加
