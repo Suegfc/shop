@@ -1,19 +1,16 @@
 package com.seventh.shop.serviceimpl;
 
 import com.seventh.shop.dao.OrderCartDao;
-import com.seventh.shop.domain.CartDetail;
 import com.seventh.shop.service.OrderCartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class OrderCartServiceImpl implements OrderCartService {
     @Autowired
     OrderCartDao cartDao;
-    @Autowired
-    CartDetail cartDetail;
+//    @Autowired
+//    CartDetail cartDetail;
 
     //确定购物车表中是否已经存在该商品
     private boolean isExit(int customerId, int productId) {
@@ -44,9 +41,9 @@ public class OrderCartServiceImpl implements OrderCartService {
 
     }
 
-    @Override
-    public List<CartDetail> getCartList(int customerId) {
-
-        return null;
-    }
+//    @Override
+//    public List<CartDetail> getCartList(int customerId) {
+//
+//        return null;
+//    }
 }
