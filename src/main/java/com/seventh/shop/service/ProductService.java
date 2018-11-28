@@ -1,5 +1,6 @@
 package com.seventh.shop.service;
 
+import com.seventh.shop.domain.Product;
 import com.seventh.shop.vo.Result;
 
 import java.util.List;
@@ -16,4 +17,8 @@ public interface ProductService {
      * @return 所有商品信息
      */
     Result<List<Map<String,Object>>> findProductNameByShopId(Integer shopId);
+
+    Result<Product> addProduct(Product product, String[] filename);
+
+    Result<List<Product>> showProduct(Integer shopid,Integer tid);
 }

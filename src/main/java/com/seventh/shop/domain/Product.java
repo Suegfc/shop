@@ -1,70 +1,59 @@
 package com.seventh.shop.domain;
 
 import javax.persistence.*;
+import java.util.List;
 
-/**
- * @author gfc
- * 2018年11月25日 上午 8:58
- */
 @Entity
 @Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+    private int id;
     @Column
-    private Integer tid;
-
-    @Column(length = 100, name = "proname")
+    private int tid;
+    @Column(name = "proName",length = 100)
     private String proName;
-
     @Column(length = 10)
     private String unit;
-
     @Column(length = 20)
     private String price;
-
-    @Column(length = 11, name = "procount")
-    private Integer proCount;
-
-    @Column(length = 11, name = "shopid")
-    private Integer shopId;
-
-    @Column(name = "prodetail")
+    @Column(name = "proDetail")
     private String proDetail;
+    @Column
+    private String text;
+    @Column(name = "proCount")
+    private int proCount;
+    @Column
+    private int shopid;
 
-    public Integer getId() {
+    @OneToMany(mappedBy = "product",cascade=CascadeType.ALL,fetch = FetchType.EAGER)
+    private List<Proimage> proimage;
+
+    public Product() {
+    }
+
+    public List<Proimage> getProimage() {
+        return proimage;
+    }
+
+    public void setProimage(List<Proimage> proimage) {
+        this.proimage = proimage;
+    }
+
+    public int getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Integer getTid() {
+    public int getTid() {
         return tid;
     }
 
-    public void setTid(Integer tid) {
+    public void setTid(int tid) {
         this.tid = tid;
-    }
-
-
-    public String getUnit() {
-        return unit;
-    }
-
-    public void setUnit(String unit) {
-        this.unit = unit == null ? null : unit.trim();
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public void setPrice(String price) {
-        this.price = price == null ? null : price.trim();
     }
 
     public String getProName() {
@@ -75,20 +64,20 @@ public class Product {
         this.proName = proName;
     }
 
-    public Integer getProCount() {
-        return proCount;
+    public String getUnit() {
+        return unit;
     }
 
-    public void setProCount(Integer proCount) {
-        this.proCount = proCount;
+    public void setUnit(String unit) {
+        this.unit = unit;
     }
 
-    public Integer getShopId() {
-        return shopId;
+    public String getPrice() {
+        return price;
     }
 
-    public void setShopId(Integer shopId) {
-        this.shopId = shopId;
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getProDetail() {
@@ -97,5 +86,29 @@ public class Product {
 
     public void setProDetail(String proDetail) {
         this.proDetail = proDetail;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public int getProCount() {
+        return proCount;
+    }
+
+    public void setProCount(int proCount) {
+        this.proCount = proCount;
+    }
+
+    public int getShopid() {
+        return shopid;
+    }
+
+    public void setShopid(int shopid) {
+        this.shopid = shopid;
     }
 }
