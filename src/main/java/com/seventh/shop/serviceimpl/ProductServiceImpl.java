@@ -9,6 +9,7 @@ import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.Map;
  * 2018年11月25日 上午 8:48
  */
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
@@ -74,5 +76,18 @@ public class ProductServiceImpl implements ProductService {
             List<Product> products = productDao.findAllByShopidAndTid(shopid, tid);
             return products != null ? Result.success(productDao.findAllByShopidAndTid(shopid, tid)) :Result.error(CodeMsg.ERROR);
         }
+    }
+
+    /**
+     * 根据商品id删除商品和图片
+     * @param id 商品id
+     * @return 返回删除成功信息
+     */
+    @Override
+    public Result deleteProduct(Integer id) {
+        productDao.deleteById(id);
+        proimageDao.deleteByPid(id);
+
+        return Result.error(CodeMsg.SUCCESS);
     }
 }

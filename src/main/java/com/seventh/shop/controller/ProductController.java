@@ -1,13 +1,11 @@
 package com.seventh.shop.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.seventh.shop.domain.Product;
 import com.seventh.shop.service.ProductService;
 import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
@@ -22,11 +20,12 @@ import java.util.UUID;
  * 2018年11月25日 上午 8:59
  */
 @RestController
+@RequestMapping("/api/v1")
 public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/api/v1/products")
+    @GetMapping("/products")
     public Result<List<Map<String, Object>>> getAllProName(Integer shopId) {
         
         return productService.findProductNameByShopId(shopId);
@@ -57,5 +56,11 @@ public class ProductController {
     @GetMapping("/product")
     public Result<List<Product>> showProduct(Integer shopid, Integer tid) {
         return productService.showProduct(shopid, tid);
+    }
+
+    @DeleteMapping("/product")
+    public Result deleteProduct(Integer id) {
+        Result result = productService.deleteProduct(id);
+        return result;
     }
 }

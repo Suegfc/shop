@@ -28,5 +28,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     List<Product> findAllByShopidAndTid(@Param("shopid") Integer shopid, @Param("tid") Integer tid);
 
     //根据shopid删除商品
-    int deleteByShopid(Integer shopid);
+
+    @Override
+    void deleteById(Integer integer);
 }

@@ -18,7 +18,26 @@ public interface ProductService {
      */
     Result<List<Map<String,Object>>> findProductNameByShopId(Integer shopId);
 
+    /**
+     * 添加商品
+     * @param product  包含了商品各种信息的实体类
+     * @param filename 商品图片名
+     * @return 返回添加成功的商品对象
+     */
     Result<Product> addProduct(Product product, String[] filename);
 
+    /**
+     * 根据商铺展示商铺内的所有商品
+     * @param shopid 商铺id
+     * @param tid 根据商品类型展示商品
+     * @return
+     */
     Result<List<Product>> showProduct(Integer shopid,Integer tid);
+
+    /**
+     * 根据商品id删除商品
+     * @param id 商品id
+     * @return 返回删除是否成功的信息
+     */
+    Result deleteProduct(Integer id);
 }
