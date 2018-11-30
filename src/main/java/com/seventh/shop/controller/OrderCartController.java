@@ -18,7 +18,7 @@ public class OrderCartController {
     @PostMapping("addToOrderCar")
     public Result addToCar(int productId,int customerId,int productAmount) {
         if (orderCartService.addToCar(productId,customerId,productAmount)) {
-            return
+            return null;
         }
         return  null;
 

@@ -8,6 +8,8 @@ import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+
 /**
  * @author gfc
  * 2018年11月23日 上午 10:26
@@ -26,10 +28,11 @@ public class UserServiceImpl implements UserService {
     }
     //修改用户信息
     @Override
+    @Transactional //表明这是一个是事物操作
     public Result<User> updateUser(User user) {
-        if(dao.findByUsernameAndPassword(user.getUsername(),user.getPassword())!=null) {
-            return dao.save(user) == null ? Result.error(CodeMsg.ERROR) : Result.success(user);
-        } else
-            return  Result.error(CodeMsg.newError(1,"请输入正确密码"));
+
+            return dao.updataUser(user.getUsername(),user.getPassword()) ==0 ?  Result.error(CodeMsg.newError(1,"请输入正确密码")): Result.success(user);
+
+
     }
 }
