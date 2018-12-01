@@ -20,7 +20,6 @@ import java.util.Map;
  * 2018年11月25日 上午 8:48
  */
 @Service
-@Transactional
 public class ProductServiceImpl implements ProductService {
     @Autowired
     private ProductDao productDao;
@@ -73,8 +72,8 @@ public class ProductServiceImpl implements ProductService {
             List<Product> products = productDao.findByShopId(shopid);
             return products != null ? Result.success(productDao.findByShopId(shopid)) :Result.error(CodeMsg.ERROR);
         } else  {
-            List<Product> products = productDao.findAllByShopidAndTid(shopid, tid);
-            return products != null ? Result.success(productDao.findAllByShopidAndTid(shopid, tid)) :Result.error(CodeMsg.ERROR);
+            List<Product> products = productDao.findByShopidAndTid(shopid, tid);
+            return products != null ? Result.success(productDao.findByShopidAndTid(shopid, tid)) :Result.error(CodeMsg.ERROR);
         }
     }
 
@@ -89,5 +88,11 @@ public class ProductServiceImpl implements ProductService {
         proimageDao.deleteByPid(id);
 
         return Result.error(CodeMsg.SUCCESS);
+    }
+
+    @Override
+    public Result updateProductType(Integer tid, Integer id) {
+        int i = productDao.updateProductTypeById(tid, id);
+        return i > 0 ? Result.error(CodeMsg.SUCCESS) : Result.error(CodeMsg.ERROR);
     }
 }

@@ -63,4 +63,9 @@ public class ProductController {
         Result result = productService.deleteProduct(id);
         return result;
     }
+
+    @PatchMapping("/product")
+    public Result updateProductType(Integer tid ,Integer id) {
+        return productService.updateProductType(tid, id);
+    }
 }

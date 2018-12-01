@@ -1,5 +1,7 @@
 package com.seventh.shop.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -20,10 +22,12 @@ public class Proimage {
     public Proimage() {
     }
 
+    @JsonBackReference
     public Product getProduct() {
         return product;
     }
 
+    @JsonBackReference
     public void setProduct(Product product) {
         this.product = product;
     }

@@ -2,8 +2,10 @@ package com.seventh.shop.dao;
 
 import com.seventh.shop.domain.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Map;
@@ -18,6 +20,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
 
     //添加
     @Override
+    @Transactional
     Product save(Product product);
 
     //根据shopid查询所有商品
@@ -25,10 +28,17 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     List<Product> findByShopId(@Param("shopid") Integer shopid);
 
     //根据shopid和tid查询商品
-    List<Product> findAllByShopidAndTid(@Param("shopid") Integer shopid, @Param("tid") Integer tid);
+    @Query(nativeQuery = true, value = "select * from product left outer join proimage on product.id = proimage.pid where shopid = ? and tid = ?")
+    List<Product> findByShopidAndTid(@Param("shopid") Integer shopid, @Param("tid") Integer tid);
 
-    //根据shopid删除商品
-
+    //根据商品id删除商品
     @Override
+    @Transactional
     void deleteById(Integer integer);
+
+    //根据商品id修改商品类型
+    @Modifying
+    @Transactional
+    @Query(value = "update product set tid = ? where id = ?", nativeQuery = true)
+    int updateProductTypeById(@Param("id") Integer id, @Param("tid") Integer tid);
 }

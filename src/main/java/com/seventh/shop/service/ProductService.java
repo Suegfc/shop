@@ -37,7 +37,9 @@ public interface ProductService {
     /**
      * 根据商品id删除商品
      * @param id 商品id
-     * @return 返回删除是否成功的信息
+     * @return 返回删除成功的信息
      */
     Result deleteProduct(Integer id);
+
+    Result updateProductType(Integer tid, Integer id);
 }
