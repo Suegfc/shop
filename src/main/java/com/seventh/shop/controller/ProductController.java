@@ -68,4 +68,9 @@ public class ProductController {
     public Result updateProductType(Integer tid ,Integer id) {
         return productService.updateProductType(tid, id);
     }
+
+    @PutMapping("/product")
+    public Result updateProduct(Product product) {
+        return productService.updateProduct(product);
+    }
 }

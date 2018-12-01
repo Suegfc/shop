@@ -41,5 +41,18 @@ public interface ProductService {
      */
     Result deleteProduct(Integer id);
 
+    /**
+     * 根据商品id修改商品类型
+     * @param tid 商品类型
+     * @param id 商品id
+     * @return 返回修改是否成功的信息
+     */
     Result updateProductType(Integer tid, Integer id);
+
+    /**
+     * 根据商品id修改商品
+     * @param product 前端传入的商品对象
+     * @return 返回商品是否修改成功信息
+     */
+    Result updateProduct(Product product);
 }

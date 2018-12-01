@@ -95,4 +95,9 @@ public class ProductServiceImpl implements ProductService {
         int i = productDao.updateProductTypeById(tid, id);
         return i > 0 ? Result.error(CodeMsg.SUCCESS) : Result.error(CodeMsg.ERROR);
     }
+
+    @Override
+    public Result updateProduct(Product product) {
+        return productDao.save(product) != null ? Result.success(productDao.save(product)) : Result.error(CodeMsg.ERROR);
+    }
 }

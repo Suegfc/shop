@@ -18,7 +18,7 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     @Query(nativeQuery = true, value = "SELECT id,proName FROM product WHERE shopid = ?")
     List<Map<String,Object>> findProductNameByShopId(@Param("id") Integer id);
 
-    //添加
+    //添加或修改商品
     @Override
     @Transactional
     Product save(Product product);
@@ -41,4 +41,5 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     @Transactional
     @Query(value = "update product set tid = ? where id = ?", nativeQuery = true)
     int updateProductTypeById(@Param("id") Integer id, @Param("tid") Integer tid);
+
 }
