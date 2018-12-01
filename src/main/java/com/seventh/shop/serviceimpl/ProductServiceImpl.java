@@ -2,6 +2,7 @@ package com.seventh.shop.serviceimpl;
 
 import com.seventh.shop.dao.ProductDao;
 import com.seventh.shop.dao.ProimageDao;
+import com.seventh.shop.dao.TypeDao;
 import com.seventh.shop.domain.Product;
 import com.seventh.shop.domain.Proimage;
 import com.seventh.shop.service.ProductService;
@@ -26,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProimageDao proimageDao;
+
+    @Autowired
+    private TypeDao typeDao;
 
     @Override
     public Result<List<Map<String, Object>>> findProductNameByShopId(Integer shopId) {
@@ -94,5 +98,25 @@ public class ProductServiceImpl implements ProductService {
     public Result updateProductType(Integer tid, Integer id) {
         int i = productDao.updateProductTypeById(tid, id);
         return i > 0 ? Result.error(CodeMsg.SUCCESS) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result updateProduct(Product product) {
+        return productDao.save(product) != null ? Result.success(productDao.save(product)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result findAllProductType() {
+        return typeDao.findAll() != null ? Result.success(typeDao.findAll()) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<List<Product>> findAllProduct(int tid) {
+        return productDao.findAllByTid(tid) != null ? Result.success(productDao.findAllByTid(tid)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<List<Product>> findAllProductByCid(int cid) {
+        return productDao.findAllByCtypeId(cid) != null ? Result.success(productDao.findAllByCtypeId(cid)) : Result.error(CodeMsg.ERROR);
     }
 }

@@ -5,8 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-import org.springframework.transaction.annotation.Transactional;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 
@@ -16,9 +16,14 @@ import java.util.Map;
  */
 public interface ProductDao extends JpaRepository<Product, Integer> {
     @Query(nativeQuery = true, value = "SELECT id,proName FROM product WHERE shopid = ?")
-    List<Map<String,Object>> findProductNameByShopId(@Param("id") Integer id);
+    List<Map<String, Object>> findProductNameByShopId(@Param("id") Integer id);
 
-    //添加
+    List<Product> findAllByTid(int tid);
+
+    @Query(nativeQuery = true, value = "SELECT * FROM product WHERE tid IN (SELECT id FROM ctype WHERE tid = ?)")
+    List<Product> findAllByCtypeId(int cid);
+
+    //添加或修改商品
     @Override
     @Transactional
     Product save(Product product);
