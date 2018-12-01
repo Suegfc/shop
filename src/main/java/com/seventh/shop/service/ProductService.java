@@ -55,4 +55,10 @@ public interface ProductService {
      * @return 返回商品是否修改成功信息
      */
     Result updateProduct(Product product);
+
+    /**
+     * 查询所有商品类型
+     * @return 返回查询结果
+     */
+    Result findAllProductType();
 }

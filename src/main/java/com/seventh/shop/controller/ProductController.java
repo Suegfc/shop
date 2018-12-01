@@ -73,4 +73,9 @@ public class ProductController {
     public Result updateProduct(Product product) {
         return productService.updateProduct(product);
     }
+
+    @GetMapping("/type")
+    public Result findProductType() {
+        return productService.findAllProductType();
+    }
 }

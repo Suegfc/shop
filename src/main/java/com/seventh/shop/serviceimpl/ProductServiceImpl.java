@@ -2,6 +2,7 @@ package com.seventh.shop.serviceimpl;
 
 import com.seventh.shop.dao.ProductDao;
 import com.seventh.shop.dao.ProimageDao;
+import com.seventh.shop.dao.TypeDao;
 import com.seventh.shop.domain.Product;
 import com.seventh.shop.domain.Proimage;
 import com.seventh.shop.service.ProductService;
@@ -26,6 +27,9 @@ public class ProductServiceImpl implements ProductService {
 
     @Autowired
     private ProimageDao proimageDao;
+
+    @Autowired
+    private TypeDao typeDao;
 
     @Override
     public Result<List<Map<String, Object>>> findProductNameByShopId(Integer shopId) {
@@ -99,5 +103,10 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Result updateProduct(Product product) {
         return productDao.save(product) != null ? Result.success(productDao.save(product)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result findAllProductType() {
+        return typeDao.findAll() != null ? Result.success(typeDao.findAll()) : Result.error(CodeMsg.ERROR);
     }
 }
