@@ -35,6 +35,7 @@ public class LoginAndRegController {
     public Result login(String username, String password, HttpSession session, HttpServletResponse response) {
         User finduser = larService.loginUser(username, password);
         if (finduser != null) {
+            session.setAttribute("user",finduser);
               CookieUtils.setCK(response, SystemCon.isLogin, URLEncoder.encode(JSON.toJSONString(finduser)));
             session.setAttribute("user",finduser);
             return Result.success("登陆成功");
