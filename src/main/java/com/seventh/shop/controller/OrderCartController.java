@@ -17,28 +17,27 @@ public class OrderCartController {
     @Autowired
     OrderCartService orderCartService;
 
-<<<<<<< HEAD
-    @PostMapping("addToOrderCar")
-    public Result addToCar(int productId,int customerId,int productAmount) {
-        if (orderCartService.addToCar(productId,customerId,productAmount)) {
-            return null;
-=======
-    @PostMapping("OrderCar")
-    public Result addToCar(int productId, int customerId, int productAmount) {
-        if (orderCartService.addToCar(productId, customerId, productAmount)) {
-            return Result.success(null);
->>>>>>> origin/master
-        }
-        return Result.error(CodeMsg.ERROR);
 
-    }
+        @PostMapping("addToOrderCar")
+                public Result addToCar(int productId, int customerId, int productAmount) {
+                    if (orderCartService.addToCar(productId, customerId, productAmount)) {
+                        return Result.success(null);
 
-    @DeleteMapping("OrderCar")
-    public Result deleToCar(int productId, int customerId) {
-        if (orderCartService.deleteCartItem(productId, customerId)) {
-            return Result.success(null);
-        }
-        return Result.error(CodeMsg.ERROR);
-    }
+                    }
+                    return Result.error(CodeMsg.ERROR);
 
-}
+                }
+
+
+
+
+
+                @DeleteMapping("OrderCar")
+                public Result deleToCar(int productId, int customerId) {
+                    if (orderCartService.deleteCartItem(productId, customerId)) {
+                        return Result.success(null);
+                    }
+                    return Result.error(CodeMsg.ERROR);
+                }
+
+            }

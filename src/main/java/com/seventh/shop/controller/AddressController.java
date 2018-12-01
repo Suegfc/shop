@@ -1,30 +1,44 @@
 package com.seventh.shop.controller;
 
+import ch.qos.logback.core.net.SyslogOutputStream;
 import com.seventh.shop.domain.Address;
 import com.seventh.shop.service.AddressService;
 import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.repository.query.Param;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 public class AddressController {
+    //添加or修改地址
     @Autowired
     private AddressService service;
     @PostMapping(path = "/api/v1/address")
     public Result sava(Address address){
 
-
             return service.sava(address);
     }
 
-
+    //查询所有收货地址
     @GetMapping (path = "/api/v1/address")
     public Result select(String uid){
 
         return service.selectAllById(uid);
+    }
+
+    //查询单个地址信息
+    @GetMapping (path = "/api/v1/getadd")
+    public Result selectById(String id){
+
+        return service.selectById(Integer.valueOf(id));
+    }
+
+    //删除某个地址
+    @DeleteMapping(path = "/api/v1/address")
+    public Result deleteById(String id){
+        System.out.print("111111111111111111111");
+        return service.deleteById(Integer.valueOf(id));
     }
 }

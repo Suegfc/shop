@@ -10,6 +10,7 @@ public class Address {
     private int id;
     @Column(length = 20,nullable = true)
     private String rname;
+
     private String rphone;
     @Column(length = 150)
     private String address;

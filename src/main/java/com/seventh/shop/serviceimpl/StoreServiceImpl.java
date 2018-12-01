@@ -23,4 +23,9 @@ public class StoreServiceImpl implements StoreService {
     public Result<List<Store>> findAllStore() {
         return storeDao.findAll() != null ? Result.success(storeDao.findAll()) : Result.error(CodeMsg.ERROR);
     }
+
+    @Override
+    public Result addStore(Store store) {
+        return storeDao.save(store) == null ?Result.error(CodeMsg.ERROR):Result.success(storeDao.save(store));
+    }
 }

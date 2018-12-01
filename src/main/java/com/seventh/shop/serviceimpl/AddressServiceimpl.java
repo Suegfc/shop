@@ -35,6 +35,8 @@ public class AddressServiceimpl  implements AddressService {
         List<Address> list = dao.selectByUid(uid);
         if(list != null) {
 
+
+
             result.setData(list);
             result.setCode(0);
             result.setMsg("成功");
@@ -42,4 +44,16 @@ public class AddressServiceimpl  implements AddressService {
             return result;
 
         }
+
+    @Override
+    public Result selectById(int id) {
+
+        return Result.success(dao.findById(id));
+    }
+    //删除指定地址
+    @Override
+    public Result deleteById(int id) {
+        dao.deleteById(id) ;
+        return Result.success(new Address());
+    }
 }

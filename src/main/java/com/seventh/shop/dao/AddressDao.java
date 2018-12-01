@@ -10,11 +10,15 @@ import java.util.List;
 
 public interface AddressDao extends JpaRepository<Address,Integer> {
 
-     @Modifying
+    @Modifying
     @Query(value = "update readdress a set a.detype = 0",nativeQuery = true)
     public int updataAddress();
 
-    @Query(value = "select * from  readdress where uid = :uid",nativeQuery = true)
+    @Query(value = "select * from  readdress where uid = :uid order by detype desc",nativeQuery = true)
     public List<Address> selectByUid(@Param("uid") String uid);
+
+    public Address findById(int id);
+
+    public void deleteById(int id);
 
 }
