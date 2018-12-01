@@ -1,6 +1,5 @@
 package com.seventh.shop.controller;
 
-import com.alibaba.druid.support.json.JSONUtils;
 import com.seventh.shop.domain.Product;
 import com.seventh.shop.service.ProductService;
 import com.seventh.shop.vo.Result;
@@ -27,8 +26,20 @@ public class ProductController {
 
     @GetMapping("/products")
     public Result<List<Map<String, Object>>> getAllProName(Integer shopId) {
-        
+
         return productService.findProductNameByShopId(shopId);
+    }
+
+    @GetMapping("/allt")
+    public Result<List<Product>> getAllProduct(Integer tid) {
+
+        return productService.findAllProduct(tid);
+    }
+
+    @GetMapping("/allc")
+    public Result<List<Product>> getAllProByCid(Integer cid) {
+
+        return productService.findAllProductByCid(cid);
     }
 
     //上传图片
@@ -40,7 +51,7 @@ public class ProductController {
 
         String FileName = UUID.randomUUID().toString() + multipartFile.getOriginalFilename();
 
-        File file = new File("D:\\Downloads\\upload\\" + FileName);
+        File file = new File("D:\\picture\\" + FileName);
 
         multipartFile.transferTo(file);
 
@@ -48,7 +59,7 @@ public class ProductController {
     }
 
     @PostMapping("/product")
-    public Result<Product> addProduct(Product product, String[] filename){
+    public Result<Product> addProduct(Product product, String[] filename) {
         System.out.println(filename);
         return productService.addProduct(product, filename);
     }
@@ -65,7 +76,7 @@ public class ProductController {
     }
 
     @PatchMapping("/product")
-    public Result updateProductType(Integer tid ,Integer id) {
+    public Result updateProductType(Integer tid, Integer id) {
         return productService.updateProductType(tid, id);
     }
 

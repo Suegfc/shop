@@ -13,11 +13,11 @@ import org.springframework.data.repository.query.Param;
  */
 public interface UserDao extends JpaRepository<User, Integer> {
 
-    public User findByUsernameAndPassword(String username, String password);
+     User findByUsernameAndPassword(String username, String password);
             
     @Modifying
     @Query(value = "update user u  set u.password = :password where u.username = :username",nativeQuery = true)
-    public int updataUser(@Param("username")String username, @Param("password")String password);
+    int updataUser(@Param("username")String username, @Param("password")String password);
 
 
 }

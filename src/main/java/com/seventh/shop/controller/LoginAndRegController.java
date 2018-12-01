@@ -1,7 +1,6 @@
 package com.seventh.shop.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.seventh.shop.constant.SystemCon;
 import com.seventh.shop.domain.User;
 import com.seventh.shop.service.LoginAndRegService;
 import com.seventh.shop.utils.CookieUtils;
@@ -33,21 +32,25 @@ public class LoginAndRegController {
 
     @PostMapping("userLogin")
     public Result login(String username, String password, HttpSession session, HttpServletResponse response) {
+        System.out.println(username);
+        System.out.println(password);
         User finduser = larService.loginUser(username, password);
+        System.out.println(finduser);
         if (finduser != null) {
-            session.setAttribute("user",finduser);
-              CookieUtils.setCK(response, SystemCon.isLogin, URLEncoder.encode(JSON.toJSONString(finduser)));
-            session.setAttribute("user",finduser);
+            session.setAttribute("user", finduser);
+            CookieUtils.setCK(response, "islogin", URLEncoder.encode(JSON.toJSONString(finduser)));
+            session.setAttribute("user", finduser);
             return Result.success("登陆成功");
         }
         return Result.error(CodeMsg.ERROR);
     }
 
-//下面方法不用
+    //下面方法不用
     @PostMapping("testCookie")
-    public Result testcookie(HttpServletRequest request,HttpSession session) {
-       if (larService.isLogin((String) request.getParameter("token")))
-        return Result.success("验证成功");
-        return  Result.error(CodeMsg.ERROR);
+    public Result testcookie(HttpServletRequest request, HttpSession session) {
+        if (larService.isLogin((String) request.getParameter("token"))) {
+            return Result.success("验证成功");
+        }
+        return Result.error(CodeMsg.ERROR);
     }
 }

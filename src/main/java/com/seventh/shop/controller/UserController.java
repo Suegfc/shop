@@ -24,11 +24,11 @@ public class UserController {
     }
     //修改个人密码
     @PostMapping("/api/v1/password")
-    public Result<User> updatePassWord(String username,String password, String oldpassword){
-        if (service.selectUser(new User(username,oldpassword)).getCode()== 1){
+    public Result<User> updatePassWord(User user, String oldpassword){
+        if (service.selectUser(new User(user.getUsername(),oldpassword)).getCode()== 1){
             return Result.error(CodeMsg.ERROR);
         }else {
-            return service.updateUser(new User(username, password));
+            return service.updateUser(user);
         }
     }
 }

@@ -31,17 +31,8 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional //表明这是一个是事物操作
     public Result<User> updateUser(User user) {
-<<<<<<< HEAD
 
-            return dao.updataUser(user.getUsername(),user.getPassword()) ==0 ?  Result.error(CodeMsg.newError(1,"请输入正确密码")): Result.success(user);
+        return dao.updataUser(user.getUsername(), user.getPassword()) == 0 ? Result.error(CodeMsg.newError(1, "修改失败")) : Result.success(user);
 
-
-=======
-        if (dao.findByUsernameAndPassword(user.getUsername(), user.getPassword()) != null) {
-            return dao.save(user) == null ? Result.error(CodeMsg.ERROR) : Result.success(user);
-        } else {
-            return Result.error(CodeMsg.newError(1, "请输入正确密码"));
-        }
->>>>>>> origin/master
     }
 }

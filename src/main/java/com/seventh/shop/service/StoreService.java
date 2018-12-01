@@ -11,4 +11,8 @@ import java.util.List;
  */
 public interface StoreService {
     Result<List<Store>> findAllStore();
+
+    Result<List<Store>> findAllStoreRandom();
+
+    Result<Store> findStoreById(int id);
 }

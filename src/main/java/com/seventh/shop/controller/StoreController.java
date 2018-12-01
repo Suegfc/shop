@@ -22,4 +22,14 @@ public class StoreController {
     public Result<List<Store>> findAllStore() {
         return service.findAllStore();
     }
+
+    @GetMapping("/api/v1/store")
+    public Result<List<Store>> findAllStoreRandom() {
+        return service.findAllStoreRandom();
+    }
+
+    @GetMapping("/api/v1/one")
+    public Result<Store> findStoreById(int shopId) {
+        return service.findStoreById(shopId);
+    }
 }

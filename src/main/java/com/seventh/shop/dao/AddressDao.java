@@ -14,7 +14,7 @@ public interface AddressDao extends JpaRepository<Address,Integer> {
     @Query(value = "update readdress a set a.detype = 0",nativeQuery = true)
     public int updataAddress();
 
-    @Query(value = "select * from  readdress where uid = :uid",nativeQuery = true)
+    @Query(value = "select * from  readdress where uid = :uid ORDER BY detype DESC",nativeQuery = true)
     public List<Address> selectByUid(@Param("uid") String uid);
 
 }

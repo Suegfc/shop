@@ -109,4 +109,14 @@ public class ProductServiceImpl implements ProductService {
     public Result findAllProductType() {
         return typeDao.findAll() != null ? Result.success(typeDao.findAll()) : Result.error(CodeMsg.ERROR);
     }
+
+    @Override
+    public Result<List<Product>> findAllProduct(int tid) {
+        return productDao.findAllByTid(tid) != null ? Result.success(productDao.findAllByTid(tid)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<List<Product>> findAllProductByCid(int cid) {
+        return productDao.findAllByCtypeId(cid) != null ? Result.success(productDao.findAllByCtypeId(cid)) : Result.error(CodeMsg.ERROR);
+    }
 }

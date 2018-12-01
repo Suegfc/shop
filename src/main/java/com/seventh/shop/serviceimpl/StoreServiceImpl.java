@@ -8,7 +8,7 @@ import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import java.util.*;
 
 /**
  * @author gfc
@@ -22,5 +22,21 @@ public class StoreServiceImpl implements StoreService {
     @Override
     public Result<List<Store>> findAllStore() {
         return storeDao.findAll() != null ? Result.success(storeDao.findAll()) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<List<Store>> findAllStoreRandom() {
+        Set<Integer> sid = new HashSet<>();
+        Random random = new Random();
+        int length = 5;
+        for (int i = 0; i < length; i++) {
+            sid.add(random.nextInt(storeDao.findCount()));
+        }
+        return storeDao.findAllById(sid) != null ? Result.success(storeDao.findAllById(sid)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<Store> findStoreById(int id) {
+        return storeDao.findById(id) != null ? Result.success(storeDao.findById(id)) : Result.error(CodeMsg.ERROR);
     }
 }
