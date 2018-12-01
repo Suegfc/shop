@@ -9,6 +9,14 @@ import javax.persistence.*;
 @Entity
 @Table(name = "user")
 public class User {
+<<<<<<< HEAD
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+=======
+>>>>>>> origin/master
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,6 +31,12 @@ public class User {
     private String cardid;
     private int time;
 
+<<<<<<< HEAD
+    public User() {
+    }
+
+=======
+>>>>>>> origin/master
     public int getId() {
         return id;
     }
@@ -111,4 +125,10 @@ public class User {
         this.time = time;
     }
 
+<<<<<<< HEAD
+
+
+
+=======
+>>>>>>> origin/master
 }

@@ -17,10 +17,17 @@ public class OrderCartController {
     @Autowired
     OrderCartService orderCartService;
 
+<<<<<<< HEAD
+    @PostMapping("addToOrderCar")
+    public Result addToCar(int productId,int customerId,int productAmount) {
+        if (orderCartService.addToCar(productId,customerId,productAmount)) {
+            return null;
+=======
     @PostMapping("OrderCar")
     public Result addToCar(int productId, int customerId, int productAmount) {
         if (orderCartService.addToCar(productId, customerId, productAmount)) {
             return Result.success(null);
+>>>>>>> origin/master
         }
         return Result.error(CodeMsg.ERROR);
 
