@@ -5,10 +5,13 @@ import com.seventh.shop.domain.User;
 import com.seventh.shop.service.UserService;
 import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
+import com.sun.net.httpserver.Authenticator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author gfc
@@ -39,9 +42,13 @@ public class UserServiceImpl implements UserService {
             return Result.error(CodeMsg.newError(1, "请输入正确密码"));
         }
 
-
-
-
-
     }
+
+    @Override
+    public Result<List<Map<String, Object>>> myConllection(String id) {
+
+
+        return Result.success(dao.myConllection(id));
+    }
+
 }

@@ -12,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sun.security.util.Password;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 @RestController
 public class UserController {
     @Autowired
@@ -30,5 +33,12 @@ public class UserController {
         }else {
             return service.updateUser(user);
         }
+    }
+
+    //查询个人收藏
+    @PostMapping("/api/v1/myCollection")
+    public Result conllection(HttpServletRequest request,String id){
+                id = "1";
+            return service.myConllection(id);
     }
 }
