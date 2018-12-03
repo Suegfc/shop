@@ -38,7 +38,8 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 添加商品
-     * @param product 前端传递过来的商品参数
+     *
+     * @param product  前端传递过来的商品参数
      * @param filename 前端传递过来的文件名
      * @return 成功返回一个商品对象，失败则返回错误信息和错误状态码
      */
@@ -57,7 +58,7 @@ public class ProductServiceImpl implements ProductService {
             }
 
             proimageDao.saveAll(list);
-            if (proimageDao.saveAll(list)== null) {
+            if (proimageDao.saveAll(list) == null) {
                 return Result.error(CodeMsg.ERROR);
             }
         }
@@ -67,29 +68,31 @@ public class ProductServiceImpl implements ProductService {
 
     /**
      * 根据商品种类不同，展示商品
+     *
      * @param tid 前端传递过来的商品种类id，如果为空，则展示全部商品
      * @return 成功返回查询出的所有商品集合，失败则返回错误信息和错误状态码
      */
     @Override
-    public Result<List<Product>> showProduct(Integer shopid,Integer tid) {
+    public Result<List<Product>> showProduct(Integer shopid, Integer tid) {
         if (tid == null) {
             List<Product> products = productDao.findByShopId(shopid);
-            return products != null ? Result.success(productDao.findByShopId(shopid)) :Result.error(CodeMsg.ERROR);
-        } else  {
+            return products != null ? Result.success(products) : Result.error(CodeMsg.ERROR);
+        } else {
             List<Product> products = productDao.findByShopidAndTid(shopid, tid);
-            return products != null ? Result.success(productDao.findByShopidAndTid(shopid, tid)) :Result.error(CodeMsg.ERROR);
+            return products != null ? Result.success(productDao.findByShopidAndTid(shopid, tid)) : Result.error(CodeMsg.ERROR);
         }
     }
 
     /**
      * 根据商品id删除商品和图片
+     *
      * @param id 商品id
      * @return 返回删除成功信息
      */
     @Override
     public Result deleteProduct(Integer id) {
-        productDao.deleteById(id);
         proimageDao.deleteByPid(id);
+        productDao.deleteById(id);
 
         return Result.error(CodeMsg.SUCCESS);
     }
@@ -111,12 +114,28 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public Result<List<Product>> findAllProduct(int tid) {
+    public Result<Product> findById(int id) {
+        Result result = new Result();
+        String img = productDao.findImg(id);
+        Product pro = productDao.findById(id);
+        if (pro != null) {
+            result.setCode(0);
+            result.setMsg("success");
+            result.setData(pro);
+            result.setOther(img);
+        } else {
+            Result.error(CodeMsg.ERROR);
+        }
+        return result;
+    }
+
+    @Override
+    public Result<List<Map<String, Object>>> findAllProduct(int tid) {
         return productDao.findAllByTid(tid) != null ? Result.success(productDao.findAllByTid(tid)) : Result.error(CodeMsg.ERROR);
     }
 
     @Override
-    public Result<List<Product>> findAllProductByCid(int cid) {
+    public Result<List<Map<String, Object>>> findAllProductByCid(int cid) {
         return productDao.findAllByCtypeId(cid) != null ? Result.success(productDao.findAllByCtypeId(cid)) : Result.error(CodeMsg.ERROR);
     }
 }

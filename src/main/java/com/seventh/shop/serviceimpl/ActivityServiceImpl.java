@@ -34,11 +34,17 @@ public class ActivityServiceImpl implements ActivityService {
     public Result<Map<String, Object>> findActivityInfo(Integer id) {
         Result<Map<String, Object>> result = new Result<>();
         Map<String, Object> activityInfo = activityDao.findActivityInfo(id);
+        System.out.println(activityInfo.get("price"));
         if (activityInfo != null) {
-            int price = Integer.parseInt((String) activityInfo.get("price"));
-            int discount = (int) activityInfo.get("discount");
-            double newPrice = (double)(price * discount) / 10;
-            result.setOther(newPrice);
+            int price;
+            int discount;
+            double newPrice;
+            if (activityInfo.get("price") != null) {
+                price = Integer.valueOf(String.valueOf(activityInfo.get("price")));
+                discount = (int) activityInfo.get("discount");
+                newPrice = (double) (price * discount) / 10;
+                result.setOther(newPrice);
+            }
             result.setMsg("success");
             result.setData(activityInfo);
             result.setCode(0);

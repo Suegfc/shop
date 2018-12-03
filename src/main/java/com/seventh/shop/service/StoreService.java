@@ -4,6 +4,7 @@ import com.seventh.shop.domain.Store;
 import com.seventh.shop.vo.Result;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author gfc
@@ -13,4 +14,11 @@ public interface StoreService {
     Result<List<Store>> findAllStore();
 
     Result addStore(Store store);
+
+    Result<List<Store>> findAllStoreRandom();
+
+    Result<Store> findStoreById(int id);
+
+    int findId(int uid);
+
 }

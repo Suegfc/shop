@@ -19,9 +19,9 @@ public interface ProductService {
      */
     Result<List<Map<String, Object>>> findProductNameByShopId(Integer shopId);
 
-    Result<List<Product>> findAllProduct(int tid);
+    Result<List<Map<String, Object>>> findAllProduct(int tid);
 
-    Result<List<Product>> findAllProductByCid(int cid);
+    Result<List<Map<String,Object>>> findAllProductByCid(int cid);
 
     /**
      * 添加商品
@@ -72,4 +72,7 @@ public interface ProductService {
      * @return 返回查询结果
      */
     Result findAllProductType();
+
+    Result<Product> findById(int id);
+
 }

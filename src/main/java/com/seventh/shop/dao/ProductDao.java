@@ -18,10 +18,12 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     @Query(nativeQuery = true, value = "SELECT id,proName FROM product WHERE shopid = ?")
     List<Map<String, Object>> findProductNameByShopId(@Param("id") Integer id);
 
-    List<Product> findAllByTid(int tid);
 
-    @Query(nativeQuery = true, value = "SELECT * FROM product WHERE tid IN (SELECT id FROM ctype WHERE tid = ?)")
-    List<Product> findAllByCtypeId(int cid);
+    @Query(nativeQuery = true, value = "SELECT p.*,i.`imgurl` FROM product p, proimage i WHERE p.id = i.pid AND tid =?")
+    List<Map<String, Object>> findAllByTid(int tid);
+
+    @Query(nativeQuery = true, value = "SELECT p.*,i.`imgurl` FROM product p, proimage i WHERE p.id = i.pid AND tid IN (SELECT id FROM ctype WHERE ctype.tid = ?)")
+    List<Map<String, Object>> findAllByCtypeId(int cid);
 
     //添加或修改商品
     @Override
@@ -46,4 +48,8 @@ public interface ProductDao extends JpaRepository<Product, Integer> {
     @Transactional
     @Query(value = "update product set tid = ? where id = ?", nativeQuery = true)
     int updateProductTypeById(@Param("id") Integer id, @Param("tid") Integer tid);
+
+    Product findById(int id);
+    @Query(nativeQuery = true,value = "SELECT imgurl FROM proimage WHERE pid = ?")
+    String findImg(int id);
 }

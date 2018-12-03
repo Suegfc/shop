@@ -22,9 +22,9 @@ public interface ActivityDao extends JpaRepository<Activity, Integer> {
     List<Map<String, Object>> findAllActivityTitle(@Param("id") Integer id);
 
     /**
-     * @param id
+     * @param pid
      * @return
      */
     @Query(nativeQuery = true, value = "SELECT activity.id as id,title,price,discount,starttime,endtime FROM product,activity WHERE product.`id`=pid AND pid = ?")
-    Map<String, Object> findActivityInfo(@Param("id") Integer id);
+    Map<String, Object> findActivityInfo(Integer pid);
 }

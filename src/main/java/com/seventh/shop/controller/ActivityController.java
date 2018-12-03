@@ -6,8 +6,10 @@ import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -27,14 +29,15 @@ public class ActivityController {
     }
 
     @GetMapping("/api/v1/activities")
-    public Result<List<Map<String, Object>>> findActivityTitle(Integer shopId) {
+    public Result<List<Map<String, Object>>> findActivityTitle(HttpServletRequest request) {
+        int sid = (int) request.getServletContext().getAttribute("sid");
 
-        return service.findAllActivityTitle(shopId);
+        return service.findAllActivityTitle(sid);
     }
 
     @GetMapping("/api/v1/activity")
     public Result<Map<String, Object>> findActivityInfo(Integer proId) {
-
+        System.out.println(proId);
         return service.findActivityInfo(proId);
     }
 }

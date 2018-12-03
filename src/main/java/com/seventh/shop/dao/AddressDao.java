@@ -12,13 +12,13 @@ public interface AddressDao extends JpaRepository<Address,Integer> {
 
     @Modifying
     @Query(value = "update readdress a set a.detype = 0",nativeQuery = true)
-    public int updataAddress();
+     int updataAddress();
 
     @Query(value = "select * from  readdress where uid = :uid order by detype desc",nativeQuery = true)
-    public List<Address> selectByUid(@Param("uid") String uid);
+     List<Address> selectByUid(@Param("uid") int uid);
 
-    public Address findById(int id);
+    Address findById(int id);
 
-    public void deleteById(int id);
+     void deleteById(int id);
 
 }

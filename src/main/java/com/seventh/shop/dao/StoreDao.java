@@ -16,4 +16,7 @@ public interface StoreDao extends JpaRepository<Store, Integer> {
     int findCount();
 
     Store findById(int id);
+
+    @Query(nativeQuery = true,value = "SELECT id FROM shop WHERE uid = ?")
+    int findId(int uid);
 }

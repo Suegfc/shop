@@ -1,5 +1,7 @@
 package com.seventh.shop.controller;
 
+import com.seventh.shop.utils.OSSUtil;
+import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,13 +21,12 @@ public class ShopLogoController {
     public Result shopLogo(@RequestParam("file") MultipartFile files, HttpServletResponse resp) throws IOException {
         // 解决ie浏览器下的Bug
         resp.setContentType("text/html");
-        String fileName = UUID.randomUUID().toString() + files.getOriginalFilename();
-        File file = new File("D:\\file\\" + fileName);
-
-        files.transferTo(file);
-      Result result =  Result.success(fileName);
-        // 将文件的名字或者文件的路径在返回给前端，前端获取到之后保存到隐藏表单域中，和其他的文本第二次提交的时候一起保存到数据库
-        return result;
-
+        String filename = UUID.randomUUID().toString().substring(0, 10) + files.getOriginalFilename();
+        if (!files.isEmpty()) {
+            String path = OSSUtil.fileUp(filename, files.getBytes());
+            return Result.success(path);
+        } else {
+            return Result.error(CodeMsg.ERROR);
+        }
     }
 }

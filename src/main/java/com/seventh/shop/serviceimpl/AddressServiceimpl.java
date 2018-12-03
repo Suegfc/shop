@@ -28,7 +28,7 @@ public class AddressServiceimpl  implements AddressService {
     }
 
     @Override
-        public Result selectAllById(String uid) {
+        public Result selectAllById(int uid) {
 
         Result result = new Result();
 

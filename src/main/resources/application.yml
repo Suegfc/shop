@@ -20,14 +20,13 @@ spring:
 # reasonable: true
 #  supportMethodsArguments: true
 #  params: count=countSql
-
 #thymeleaf:
 #  cache: false
 #  content-type: text/html
 #  enabled: true
 #  encoding: UTF-8
 #  mode: HTML5
-# prefix: classpath:/templates/
-server:
-  port: 8082
-# suffix: .html
+#  prefix: classpath:/templates/
+#  suffix: .html
+#server:
+#  port: 8084

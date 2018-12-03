@@ -1,12 +1,16 @@
 package com.seventh.shop.controller;
 
 import com.seventh.shop.domain.Product;
+import com.seventh.shop.domain.User;
 import com.seventh.shop.service.ProductService;
+import com.seventh.shop.utils.OSSUtil;
+import com.seventh.shop.vo.CodeMsg;
 import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
@@ -25,19 +29,20 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public Result<List<Map<String, Object>>> getAllProName(Integer shopId) {
+    public Result<List<Map<String, Object>>> getAllProName(HttpServletRequest request) {
 
-        return productService.findProductNameByShopId(shopId);
+        int sid = (int) request.getServletContext().getAttribute("sid");
+        return productService.findProductNameByShopId(sid);
     }
 
     @GetMapping("/allt")
-    public Result<List<Product>> getAllProduct(Integer tid) {
+    public Result<List<Map<String, Object>>> getAllProduct(Integer tid) {
 
         return productService.findAllProduct(tid);
     }
 
     @GetMapping("/allc")
-    public Result<List<Product>> getAllProByCid(Integer cid) {
+    public Result<List<Map<String, Object>>> getAllProByCid(Integer cid) {
 
         return productService.findAllProductByCid(cid);
     }
@@ -48,25 +53,30 @@ public class ProductController {
 
         //解决ie下的bug
         response.setContentType("text/html");
-
-        String FileName = UUID.randomUUID().toString() + multipartFile.getOriginalFilename();
-
-        File file = new File("D:\\picture\\" + FileName);
-
-        multipartFile.transferTo(file);
-
-        return Result.success(FileName);
+        String filename = UUID.randomUUID().toString().substring(0, 10) + multipartFile.getOriginalFilename();
+        if (!multipartFile.isEmpty()) {
+            String path = OSSUtil.fileUp(filename, multipartFile.getBytes());
+            return Result.success(path);
+        } else {
+            return Result.error(CodeMsg.ERROR);
+        }
     }
 
     @PostMapping("/product")
-    public Result<Product> addProduct(Product product, String[] filename) {
-        System.out.println(filename);
+    public Result<Product> addProduct(Product product, String[] filename, HttpServletRequest request) {
+        if (product != null) {
+            int shopId = (Integer) request.getServletContext().getAttribute("sid");
+            product.setShopid(shopId);
+        }
         return productService.addProduct(product, filename);
     }
 
     @GetMapping("/product")
-    public Result<List<Product>> showProduct(Integer shopid, Integer tid) {
-        return productService.showProduct(shopid, tid);
+    public Result<List<Product>> showProduct(Integer shopId, Integer tid, HttpServletRequest request) {
+        if (shopId == null || shopId == 0) {
+            shopId = (Integer) request.getServletContext().getAttribute("sid");
+        }
+        return productService.showProduct(shopId, tid);
     }
 
     @DeleteMapping("/product")
@@ -80,7 +90,7 @@ public class ProductController {
         return productService.updateProductType(tid, id);
     }
 
-    @PutMapping("/product")
+    @PostMapping("/modifyproduct")
     public Result updateProduct(Product product) {
         return productService.updateProduct(product);
     }
@@ -89,4 +99,10 @@ public class ProductController {
     public Result findProductType() {
         return productService.findAllProductType();
     }
+
+    @GetMapping("/onepro")
+    public Result<Product> findProduct(int id) {
+        return productService.findById(id);
+    }
+
 }

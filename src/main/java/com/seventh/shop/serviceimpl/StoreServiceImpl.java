@@ -8,7 +8,10 @@ import com.seventh.shop.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 /**
  * @author gfc
@@ -26,6 +29,29 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Result addStore(Store store) {
-        return storeDao.save(store) == null ?Result.error(CodeMsg.ERROR):Result.success(storeDao.save(store));
+        return storeDao.save(store) == null ? Result.error(CodeMsg.ERROR) : Result.success(storeDao.save(store));
     }
+
+    @Override
+    public Result<List<Store>> findAllStoreRandom() {
+        Set<Integer> sid = new HashSet<>();
+        Random random = new Random();
+        int length = 5;
+        for (int i = 0; i < length; i++) {
+            sid.add(random.nextInt(storeDao.findCount()));
+        }
+        return storeDao.findAllById(sid) != null ? Result.success(storeDao.findAllById(sid)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public Result<Store> findStoreById(int id) {
+        return storeDao.findById(id) != null ? Result.success(storeDao.findById(id)) : Result.error(CodeMsg.ERROR);
+    }
+
+    @Override
+    public int findId(int uid) {
+        return uid != 0 ? storeDao.findId(uid) : 0;
+    }
+
+
 }
